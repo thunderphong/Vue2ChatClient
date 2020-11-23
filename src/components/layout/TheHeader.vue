@@ -16,10 +16,14 @@
 							>
 						</li>
 					</template>
-					<li v-else class="nav-item">
-						<a to="#" class="nav-link" @click.prevent="logout">Logout</a>
-					</li>
-					<li class="nav-item"><router-link to="/" class="nav-link">Welcome</router-link></li>
+					<template v-else>
+						<li class="nav-item">
+							<span class="nav-link">{{ username }}</span>
+						</li>
+						<li class="nav-item"><a to="#" class="nav-link" @click.prevent="logout">Logout</a></li>
+						<li class="nav-item"><router-link to="/dashboard" class="nav-link">Dashboard</router-link></li>
+						<li class="nav-item"><router-link to="/" class="nav-link">Welcome</router-link></li>
+					</template>
 				</ul>
 			</div>
 		</nav>
@@ -31,6 +35,9 @@
 		computed: {
 			isLoggedIn() {
 				return this.$store.getters["user/isAuthenticated"];
+			},
+			username() {
+				return this.$store.getters["user/showUsername"];
 			},
 		},
 		methods: {
@@ -47,5 +54,8 @@
 <style scoped>
 	h1 {
 		font-size: 1.5rem;
+	}
+	a {
+		cursor: pointer;
 	}
 </style>

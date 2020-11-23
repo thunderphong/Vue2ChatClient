@@ -1,5 +1,13 @@
 <template>
-	<div>TEST</div>
+	<div>
+		<slot></slot>
+	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+	div {
+		background: #bacbd2;
+		border: 1px solid black;
+		padding: 5px 0px;
+	}
+</style>

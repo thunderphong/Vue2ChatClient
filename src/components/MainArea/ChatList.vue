@@ -8,68 +8,24 @@
 		<input type="text" class="form-control in" placeholder="Tìm kiếm" />
 
 		<div class="chatlist">
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN</div>
-			</div>
-			<div>
-				<div>HÌNH</div>
-				<div>TÊN LASTs</div>
+			<div v-for="(ten, index) in chatArray" :key="index">
+				<router-link :to="{ name: 'dashboardProps', params: { namespace: ten } }" class="namespaceHolder">
+					<div class="namespaceImage"><img src="../../assets/logo.png" /></div>
+					<div class="namespaceItem">{{ ten }}</div>
+				</router-link>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	export default {};
+	export default {
+		props: ["chatArray"],
+		data() {
+			return {};
+		},
+		methods: {},
+	};
 </script>
 
 <style scoped>
@@ -92,7 +48,29 @@
 	.chatlist {
 		overflow-y: scroll;
 	}
-	/* .in {
-		margin-right: 10px;
-	} */
+	.chatlist a {
+		text-decoration: none;
+	}
+	.namespaceHolder {
+		display: flex;
+		/* border: 1px solid black; */
+		/* background: lightgrey; */
+		border-radius: 10px;
+		padding: 20px 0;
+	}
+	.namespaceHolder:hover {
+		background: grey;
+		cursor: pointer;
+	}
+	.namespaceItem {
+		font-size: 1.1rem;
+	}
+	.namespaceImage img {
+		width: 30px;
+		height: 30px;
+		margin: 0px 10px;
+	}
+	.selected {
+		background: oldlace;
+	}
 </style>

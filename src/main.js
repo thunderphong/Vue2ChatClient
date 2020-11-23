@@ -8,6 +8,8 @@ import { routes } from "./routes";
 import TheHeader from "./components/layout/TheHeader.vue";
 import Button from "./components/UI/Button.vue";
 
+// Router
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -17,14 +19,7 @@ const router = new VueRouter({
 
 router.beforeResolve((to, from, next) => {
 	const isToken = store.getters["user/isAuthenticated"];
-	console.log(
-		"to.matched.some: ",
-		to.matched.some((record) => record.meta.requiredAuth)
-	);
-	console.log("isToken: ", isToken);
-	// if (to.matched.some((record) => record.meta.requiredAuth) && !isToken) next({ name: "auth" });
-	// else if (to.matched.some((record) => record.meta.unRequiredAuth) && isToken) next({ name: "dashboard" });
-	// else next();
+
 	if (to.matched.some((record) => record.meta.requiredAuth)) {
 		if (!isToken) next({ path: "/auth" });
 		else next();

@@ -2,7 +2,7 @@
 	<div class="dashboard-content">
 		<div><the-header></the-header></div>
 		<div class="row-two">
-			<chat-list></chat-list>
+			<chat-list :chatArray="chatArray"></chat-list>
 			<chat-field></chat-field>
 		</div>
 	</div>
@@ -14,11 +14,25 @@
 
 	export default {
 		data() {
-			return {};
+			return {
+				// namespace: undefined,
+			};
 		},
 		components: {
 			"chat-list": ChatList,
 			"chat-field": ChatField,
+		},
+		computed: {
+			chatArray() {
+				return this.$store.getters["chat/showNamespaceArray"];
+			},
+			username() {
+				return this.$store.getters["user/showUsername"];
+			},
+		},
+		methods: {},
+		created() {
+			this.$store.dispatch("chat/retrieveNamespace", this.username); // Hàm fetch dữ liệu từ database và gán nó qua vuex
 		},
 	};
 </script>

@@ -101,5 +101,8 @@ export default {
 		isAuthenticated: () => {
 			return !!localStorage.getItem("token");
 		},
+		showUsername: () => {
+			return localStorage.getItem("username");
+		},
 	},
 };

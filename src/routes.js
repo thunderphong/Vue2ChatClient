@@ -2,7 +2,6 @@ import Welcome from "./pages/Welcome.vue";
 import NotFound from "./pages/notFound.vue";
 import Auth from "./pages/Auth.vue";
 import DashBoard from "./pages/Dashboard.vue";
-
 export const routes = [
 	{ path: "/", redirect: "/welcome" },
 	{ path: "/welcome", component: Welcome },
@@ -17,9 +16,14 @@ export const routes = [
 	},
 	{
 		path: "/dashboard",
-		name: "dashboard",
+		redirect: "/dashboard/commonRoom",
+	},
+	{
+		path: "/dashboard/:namespace",
+		name: "dashboardProps",
 		component: DashBoard,
 		meta: { requiredAuth: true },
+		props: true,
 	},
 	{ path: "*", component: NotFound },
 ];
