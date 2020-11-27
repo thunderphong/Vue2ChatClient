@@ -10,19 +10,18 @@
 						<my-messdialog>2020</my-messdialog>
 					</template> -->
 					<template v-else>
-						<my-messdialog v-for="d in dialog" :key="d.id" :user="d.username">
-							<template>{{ d.message }}</template>
-							<template slot="time">
-								{{ d.timeSend }}
-							</template>
-							<!-- <template slot="user">
-								{{ d.username }}
-							</template> -->
+						<my-messdialog
+							v-for="d in dialog"
+							:key="d.id"
+							:user="d.username"
+							:time="d.timeSend"
+						>
+							{{ d.message }}
 						</my-messdialog>
 					</template>
 				</div>
 				<div class="chatInput">
-					<button class="btn btn-primary">File</button>
+					<!-- <button class="btn btn-primary">File</button> -->
 					<form @submit.prevent="submitDialog">
 						<input
 							type="text"
@@ -31,7 +30,7 @@
 							v-model="inputDialog"
 						/>
 						<button class="btn btn-primary">
-							Send
+							Gửi
 						</button>
 					</form>
 				</div>
@@ -120,6 +119,7 @@ export default {
 }
 .chatFieldHeader {
 	border: 1px solid #d3d3d3;
+	/* border-radius: 10px 0 0 10px; */
 	padding: 0.5rem 1rem;
 }
 .chatFieldMain {
@@ -144,7 +144,8 @@ export default {
 	margin-right: 0.5rem;
 }
 .cot2 {
-	background: burlywood;
+	padding: 15px 10px;
+	background: #f4f4f8;
 	/* overflow-y: scroll; */
 }
 .mocktext {

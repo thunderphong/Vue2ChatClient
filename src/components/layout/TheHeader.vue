@@ -9,14 +9,14 @@
 							<router-link
 								class="nav-link"
 								:to="{ name: 'auth', params: { cState: 'login' } }"
-								>Login</router-link
+								>Đăng nhập</router-link
 							>
 						</li>
 						<li class="nav-item">
 							<router-link
 								class="nav-link"
 								:to="{ name: 'auth', params: { cState: 'register' } }"
-								>Register</router-link
+								>Đăng ký</router-link
 							>
 						</li>
 					</template>
@@ -40,9 +40,9 @@
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 									<a class="dropdown-item" href="#">Profile</a>
-									<a class="dropdown-item" href="#">Change Password</a>
+									<a class="dropdown-item" href="#">Đổi mật khẩu</a>
 									<a class="dropdown-item" href="#" @click.prevent="logout"
-										>Logout</a
+										>Đăng xuất</a
 									>
 								</div>
 							</div>
