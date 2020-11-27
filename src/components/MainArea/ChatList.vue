@@ -7,16 +7,10 @@
 			</router-link>
 		</nav>
 
-		<input
-			type="text"
-			class="form-control in"
-			placeholder="Nhập và enter để tìm kiếm"
-			@keyup.enter="search"
-			v-model="searchText"
-		/>
+		<input type="text" class="form-control in" placeholder="Nhập và enter để tìm kiếm" v-model="searchText" />
 
 		<div class="chatlist">
-			<div v-for="(ten, index) in chatArrayList" :key="index">
+			<div v-for="(ten, index) in chatArray" :key="index">
 				<router-link
 					:to="{ name: 'dashboardProps', params: { namespace: ten } }"
 					class="namespaceHolder"
@@ -33,11 +27,9 @@
 
 <script>
 export default {
-	// props: ["chatArray"],
 	data() {
 		return {
 			searchText: "",
-			chatArrayList: this.$store.getters["chat/showNamespaceArray"],
 		};
 	},
 	created() {
@@ -47,14 +39,15 @@ export default {
 		username() {
 			return this.$store.getters["user/showUsername"];
 		},
+		chatArray() {
+			const chat = this.$store.getters["chat/showNamespaceArray"];
+			return chat.filter((user) => user.startsWith(this.searchText));
+		},
 	},
 	methods: {
-		search() {
-			if (this.searchText == "") this.chatArrayList = this.$store.getters["chat/showNamespaceArray"];
-			else this.chatArrayList = this.chatArrayList.filter((user) => user.startsWith(this.searchText));
-		},
 		fetchData() {
 			this.$store.dispatch("chat/retrieveNamespace", this.username);
+			this.chatArrayList = this.$store.getters["chat/showNamespaceArray"];
 		},
 	},
 };
