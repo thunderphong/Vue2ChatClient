@@ -37,7 +37,7 @@ export default {
 	data() {
 		return {
 			searchText: "",
-			// chatArrayList: this.chatArray,
+			chatArrayList: this.$store.getters["chat/showNamespaceArray"],
 		};
 	},
 	created() {
@@ -47,14 +47,11 @@ export default {
 		username() {
 			return this.$store.getters["user/showUsername"];
 		},
-		chatArrayList() {
-			return this.$store.getters["chat/showNamespaceArray"];
-		},
 	},
 	methods: {
 		search() {
-			this.chatArrayList = this.chatArrayList.filter((user) => user.startsWith(this.searchText));
-			if (this.searchText == "") this.chatArrayList = this.chatArray;
+			if (this.searchText == "") this.chatArrayList = this.$store.getters["chat/showNamespaceArray"];
+			else this.chatArrayList = this.chatArrayList.filter((user) => user.startsWith(this.searchText));
 		},
 		fetchData() {
 			this.$store.dispatch("chat/retrieveNamespace", this.username);

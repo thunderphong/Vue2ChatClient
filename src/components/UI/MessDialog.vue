@@ -23,6 +23,8 @@
 
 <script>
 //:class="{ containerOwner: isOwner, container: !isOwner }"
+import dayjs from "dayjs";
+
 export default {
 	props: ["user", "time"],
 	computed: {
@@ -33,17 +35,11 @@ export default {
 			return this.username == this.user;
 		},
 		timeModified() {
-			return (
-				(parseInt(this.time.substring(11, 13), 10) + 7).toString() +
-				":" +
-				this.time.substring(14, 19) +
-				" - " +
-				this.time.substring(8, 10) +
-				"/" +
-				this.time.substring(5, 7) +
-				"/" +
-				this.time.substring(0, 4)
-			);
+			if (this.time) {
+				return dayjs(this.time).format("DD/MM/YYYY hh:mm A");
+			} else {
+				return null;
+			}
 		},
 	},
 };
