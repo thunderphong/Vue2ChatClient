@@ -6,23 +6,47 @@
 				<ul class="navbar-nav">
 					<template v-if="!isLoggedIn">
 						<li class="nav-item">
-							<router-link class="nav-link" :to="{ name: 'auth', params: { cState: 'login' } }"
+							<router-link
+								class="nav-link"
+								:to="{ name: 'auth', params: { cState: 'login' } }"
 								>Login</router-link
 							>
 						</li>
 						<li class="nav-item">
-							<router-link class="nav-link" :to="{ name: 'auth', params: { cState: 'register' } }"
+							<router-link
+								class="nav-link"
+								:to="{ name: 'auth', params: { cState: 'register' } }"
 								>Register</router-link
 							>
 						</li>
 					</template>
 					<template v-else>
 						<li class="nav-item">
-							<span class="nav-link">{{ username }}</span>
+							<router-link to="/" class="nav-link">Welcome</router-link>
 						</li>
-						<li class="nav-item"><a to="#" class="nav-link" @click.prevent="logout">Logout</a></li>
-						<li class="nav-item"><router-link to="/dashboard" class="nav-link">Dashboard</router-link></li>
-						<li class="nav-item"><router-link to="/" class="nav-link">Welcome</router-link></li>
+						<li class="nav-item">
+							<router-link to="/dashboard" class="nav-link">Dashboard</router-link>
+						</li>
+						<li>
+							<div class="dropdown">
+								<button
+									class="dropdown-toggle btn custom-dropdown nav-item"
+									id="dropdownMenuButton"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+								>
+									{{ username.toUpperCase() }}
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="#">Profile</a>
+									<a class="dropdown-item" href="#">Change Password</a>
+									<a class="dropdown-item" href="#" @click.prevent="logout"
+										>Logout</a
+									>
+								</div>
+							</div>
+						</li>
 					</template>
 				</ul>
 			</div>
@@ -31,31 +55,34 @@
 </template>
 
 <script>
-	export default {
-		computed: {
-			isLoggedIn() {
-				return this.$store.getters["user/isAuthenticated"];
-			},
-			username() {
-				return this.$store.getters["user/showUsername"];
-			},
+export default {
+	computed: {
+		isLoggedIn() {
+			return this.$store.getters["user/isAuthenticated"];
 		},
-		methods: {
-			logout() {
-				this.$store.dispatch("user/logoutUser");
-				this.$router.go();
-			},
+		username() {
+			return this.$store.getters["user/showUsername"];
 		},
-	};
-
-	// Bắt đầu làm chat
+	},
+	methods: {
+		logout() {
+			this.$store.dispatch("user/logoutUser");
+			this.$router.go();
+		},
+	},
+};
 </script>
 
 <style scoped>
-	h1 {
-		font-size: 1.5rem;
-	}
-	a {
-		cursor: pointer;
-	}
+h1 {
+	margin: 0 10px;
+	font-size: 1.5rem;
+}
+.custom-dropdown {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* a:hover {
+	cursor: pointer;
+} */
 </style>

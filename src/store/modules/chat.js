@@ -4,6 +4,7 @@ export default {
 		name: "",
 		namespaceArray: [],
 		dialog: [],
+		userArray: [],
 	},
 	getters: {
 		showNamespaceArray(state) {
@@ -14,6 +15,9 @@ export default {
 		},
 		showName(state) {
 			return state.name;
+		},
+		showUserArray(state) {
+			return state.userArray;
 		},
 	},
 	mutations: {
@@ -26,13 +30,19 @@ export default {
 		setName: (state, data) => {
 			state.name = data;
 		},
+		setUserArray: (state, data) => {
+			state.userArray = data;
+		},
 	},
 	actions: {
 		async retrieveNamespace({ commit }, username) {
-			const response = await fetch("http://localhost:3000/getNamespaceOfMe/" + username, {
-				method: "GET",
-				// headers: { "Content-Type": "application/json" },
-			});
+			const response = await fetch(
+				"http://localhost:3000/getNamespaceOfMe/" + username,
+				{
+					method: "GET",
+					// headers: { "Content-Type": "application/json" },
+				}
+			);
 
 			const responseData = await response.json();
 
@@ -41,10 +51,15 @@ export default {
 				commit("setNamespaceArray", responseData);
 			}
 		},
+
 		async getDialogOfNamespace(context, namespace) {
-			const response = await fetch("http://localhost:3000/getDialogOfNamespace/" + namespace, {
-				method: "GET",
-			});
+			const response = await fetch(
+				"http://localhost:3000/getDialogOfNamespace/" +
+					namespace,
+				{
+					method: "GET",
+				}
+			);
 
 			const responseData = await response.json();
 
@@ -53,9 +68,11 @@ export default {
 				context.commit("setDialog", responseData);
 			}
 		},
+
 		setNamespace(context, namespace) {
 			context.commit("setName", namespace);
 		},
+
 		async postDialogOfNamespace(context, data) {
 			const commitData = {
 				namespace: context.getters["showName"],
@@ -75,6 +92,15 @@ export default {
 			else {
 				context.commit("setDialog", responseData);
 			}
+		},
+
+		async getUserListOfNamespace(context, namespace) {
+			const response = await fetch(
+				"http://localhost:3000/getUserList/" + namespace
+			);
+			const responseData = await response.json();
+			if (!response.ok) throw new Error(responseData.error);
+			else context.commit("setUserArray", responseData);
 		},
 	},
 };
